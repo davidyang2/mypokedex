@@ -1,0 +1,8 @@
+com\pokedex\springmvc\controller\HelloWorldRestController.class
+com\pokedex\springmvc\controller\IndexController.class
+com\pokedex\springmvc\configuration\CORSFilter.class
+com\pokedex\springmvc\service\UserService.class
+com\pokedex\springmvc\model\User.class
+com\pokedex\springmvc\configuration\HelloWorldInitializer.class
+com\pokedex\springmvc\configuration\HelloWorldConfiguration.class
+com\pokedex\springmvc\service\UserServiceImpl.class
