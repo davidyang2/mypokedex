@@ -54,6 +54,8 @@ public class Pokemon {
 	@Column(name="LEGENDARY")
 	private String legendary;
 	
+	public Pokemon() {}
+	
 	public Integer getNumber() {
 		return number;
 	}
