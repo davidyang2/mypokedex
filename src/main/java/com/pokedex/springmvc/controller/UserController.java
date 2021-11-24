@@ -40,7 +40,7 @@ public class UserController {
     //-------------------Retrieve Single User--------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable("id") long id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") Integer id) {
         System.out.println("Fetching User with id " + id);
         User user = userService.findById(id);
         if (user == null) {
@@ -58,12 +58,12 @@ public class UserController {
     public ResponseEntity<Void> createUser(@RequestBody User user,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating User " + user.getUsername());
   
-        if (userService.isUserExist(user)) {
-            System.out.println("A User with name " + user.getUsername() + " already exist");
-            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-        }
+//        if (userService.isUserExist(user)) {
+//            System.out.println("A User with name " + user.getUsername() + " already exist");
+//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+//        }
   
-        userService.saveUser(user);
+        userService.createUser(user);
   
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(ucBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri());
@@ -75,7 +75,7 @@ public class UserController {
     //------------------- Update a User --------------------------------------------------------
       
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@PathVariable("id") long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable("id") Integer id, @RequestBody User user) {
         System.out.println("Updating User " + id);
           
         User currentUser = userService.findById(id);
@@ -89,7 +89,7 @@ public class UserController {
         currentUser.setEmail(user.getEmail());
         currentUser.setPassword(user.getPassword());
         currentUser.setSwitchFC(user.getSwitchFC());
-        currentUser.setThreeDSDC(user.getThreeDSFC());
+        currentUser.setThreeDSFC(user.getThreeDSFC());
           
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
@@ -99,30 +99,20 @@ public class UserController {
      
     //------------------- Delete a User --------------------------------------------------------
       
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteUser(@PathVariable("id") long id) {
-        System.out.println("Fetching & Deleting User with id " + id);
+    @RequestMapping(value = "/user/{email}", method = RequestMethod.DELETE)
+    public ResponseEntity<User> deleteUser(@PathVariable("id") String email) {
+        System.out.println("Fetching & Deleting User with id " + email);
   
-        User user = userService.findById(id);
+        User user = userService.findByEmail(email);
         if (user == null) {
-            System.out.println("Unable to delete. User with id " + id + " not found");
+            System.out.println("Unable to delete. User with id " + email + " not found");
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
   
-        userService.deleteUserById(id);
+        userService.deleteUserByEmail(email);
         return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
     }
   
       
-     
-    //------------------- Delete All Users --------------------------------------------------------
-      
-    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
-    public ResponseEntity<User> deleteAllUsers() {
-        System.out.println("Deleting All Users");
-  
-        userService.deleteAllUsers();
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-    }
-  
+ 
 }

@@ -7,8 +7,9 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
     var factory = {
         fetchAllUsers: fetchAllUsers,
         createUser: createUser,
-        updateUser:updateUser,
-        deleteUser:deleteUser
+        updateUser: updateUser,
+        deleteUser: deleteUser,
+		getUserByUsername: getUserByUsername
     };
  
     return factory;
@@ -20,13 +21,28 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
             function (response) {
                 deferred.resolve(response.data);
             },
-            function(errResponse){
+            function(errResponse) {
                 console.error('Error while fetching Users');
                 deferred.reject(errResponse);
             }
         );
         return deferred.promise;
     }
+	
+	function getUserByUsername(user, username) {
+		var deferred = $q.defer();
+		$http.get(REST_SERVICE_URI+username)
+			.then(
+			function (response) {
+				deferred.resolve(response.data);
+			},
+			function (errResponse) {
+				console.error('Error while fetching User');
+				deferred.reject(errResponse);
+			}
+			);
+			return deferred.promise;
+	}
  
     function createUser(user) {
         var deferred = $q.defer();
@@ -35,7 +51,7 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
             function (response) {
                 deferred.resolve(response.data);
             },
-            function(errResponse){
+            function(errResponse) {
                 console.error('Error while creating User');
                 deferred.reject(errResponse);
             }
@@ -51,7 +67,7 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
             function (response) {
                 deferred.resolve(response.data);
             },
-            function(errResponse){
+            function(errResponse) {
                 console.error('Error while updating User');
                 deferred.reject(errResponse);
             }
@@ -66,7 +82,7 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
             function (response) {
                 deferred.resolve(response.data);
             },
-            function(errResponse){
+            function(errResponse) {
                 console.error('Error while deleting User');
                 deferred.reject(errResponse);
             }

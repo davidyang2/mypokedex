@@ -52,10 +52,15 @@
                       <div class="row">
                      	 <label class="col-md-2 control-lable" for="name">Region</label>
                       		<select class="form-select" aria-label="Default select example">
-  								<option selected>Galar (Sword)</option>
-  								<option value="1">Galar (Shield)</option>
-  								<option value="2">Alola (Sun)</option>
-  								<option value="3">Alola (Moon)</option>
+  								<option selected>Galar (Sword/Shield)</option>
+  								<option value="2">Alola (Sun/Moon)</option>
+  								<option value="3">Kalos (X/Y)</option>
+  								<option value="4">Unova (Black/White)</option>
+  								<option value="5">Sinnoh (Diamond/Pearl)</option>
+  								<option value="6">Hoenn (Ruby/Sapphire)</option>
+  								<option value="6">Johto (Gold/Silver)</option>
+  								<option value="6">Kanto (Red/Blue)</option>
+  								
 					  		</select>
 					  </div>
 					  
@@ -107,6 +112,8 @@
        
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="<c:url value='/static/js/app.js' />"></script>
+      <script src="<c:url value='/static/js/service/user_service.js' />"></script>
+      <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
       <script src="<c:url value='/static/js/service/user_service.js' />"></script>
       <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
   </body>

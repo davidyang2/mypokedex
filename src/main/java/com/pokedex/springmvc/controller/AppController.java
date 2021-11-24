@@ -19,7 +19,6 @@ import com.pokedex.springmvc.model.Employee;
 import com.pokedex.springmvc.service.EmployeeService;
  
 @Controller
-@RequestMapping("/")
 public class AppController {
  
     @Autowired
@@ -31,10 +30,11 @@ public class AppController {
     /*
      * This method will list all existing employees.
      */
-    @RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/user", "/list" }, method = RequestMethod.GET) // to /user
     public String listEmployees(ModelMap model) {
  
         List<Employee> employees = service.findAllEmployees();
+        System.out.println(employees.get(0));
         model.addAttribute("employees", employees);
         return "allemployees";
     }

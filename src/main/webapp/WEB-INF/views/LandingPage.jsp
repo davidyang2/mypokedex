@@ -2,17 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>My Pokedex</title>
 <style>
-      <%-- Move to css file --%>
-      h1 {text-align: center;}
-      h2 {text-align: center;}
-      h3 {text-align: center;}
-      p {text-align: center;}
-      a {text-align: center;}
  
     </style>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
@@ -22,10 +16,10 @@
 	<h1>Welcome to MyPokedex!</h1><br>
 	<h3>A Living Dex Pokemon Tracker</h2>
 	<p>Support for all generations of mainline Pokemon games</h3><br>
-	<a href="/MyPokedex/login/">
+	<a href="/MyPokedex/login">
   		<button type="button" class="btn btn-primary">Login</button>
 	</a><br><br>
-	<a href="/MyPokedex/signup/">
+	<a href="/MyPokedex/signup">
   		<button type="button" class="btn btn-secondary">Sign Up</button>
 	</a>
 </body>

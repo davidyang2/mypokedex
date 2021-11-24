@@ -2,7 +2,7 @@
  
 angular.module('myApp').controller('UserController', ['$scope', 'UserService', function($scope, UserService) {
     var self = this;
-    self.user={id:null,username:'',address:'',email:''};
+    self.user={id:null,username:'',email:'',password:'',switchfc:'',threedsfc:''};
     self.users=[];
  
     self.submit = submit;
@@ -34,6 +34,16 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             }
         );
     }
+	
+	function getUserByUsername() {
+		UserService.getUserByUsername(user.username)
+			.then(
+				fetchAllUsers,
+				function(errResponse){
+					console.error('Error while getting User');
+				}
+			)
+	}
  
     function updateUser(user, id){
         UserService.updateUser(user, id)
@@ -75,6 +85,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
             }
         }
     }
+
  
     function remove(id){
         console.log('id to be deleted', id);
@@ -86,7 +97,7 @@ angular.module('myApp').controller('UserController', ['$scope', 'UserService', f
  
  
     function reset(){
-        self.user={id:null,username:'',address:'',email:''};
+        self.user={id:null,username:'',email:'', password:'', switchfc:'', threedsfc: ''};
         $scope.myForm.$setPristine(); //reset Form
     }
  

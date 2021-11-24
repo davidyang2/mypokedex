@@ -29,7 +29,7 @@ public class EmployeeDaoImpl extends AbstractDao<Integer, Employee> implements E
     @SuppressWarnings("unchecked")
     public List<Employee> findAllEmployees() {
         Criteria criteria = createEntityCriteria();
-        return (List<Employee>) criteria.list();
+        return criteria.list();
     }
  
     public Employee findEmployeeBySsn(String ssn) {
