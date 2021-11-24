@@ -20,6 +20,7 @@ import com.pokedex.springmvc.service.UserService;
 @RestController
 public class UserController {
   
+	// TODO: Change controller to use manager instead of service
     @Autowired
     UserService userService;  //Service which will do all data retrieval/manipulation work
   
