@@ -28,17 +28,6 @@
   <dependencies>
   	
   	<!-- Spring -->
-  	<!--  delete spring-core and spring-web  -->
-  	<dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-core</artifactId>
-    	<version>${springframework.version}</version>
-    </dependency>
- 	<dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${springframework.version}</version>
-    </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
@@ -75,23 +64,7 @@
     	<artifactId>mysql-connector-java</artifactId>
     	<version>${mysql.connector.version}</version>
     </dependency>
-    
-    <!-- Joda Time -->
-    <!-- Use native datetime library, delete later when fixing -->
-    <dependency>
-    	<groupId>joda-time</groupId>
-    	<artifactId>joda-time</artifactId>
-    	<version>${joda-time.version}</version>
-    </dependency>
-    
-    <!-- Map JodaTime with database type -->
-    <!--  delete this along with joda-time  -->
-    <dependency>
-    	<groupId>org.jadira.usertype</groupId>
-    	<artifactId>usertype.core</artifactId>
-    	<version>3.0.0.CR1</version>
-    </dependency>
-    
+   
     <!-- Servlet+JSP+JSTL -->
     <dependency>
     	<groupId>javax.servlet</groupId>
