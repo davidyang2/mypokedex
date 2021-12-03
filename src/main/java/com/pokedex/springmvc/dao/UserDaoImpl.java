@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
  
-    public User findById(Integer id) {
+    public User findById(Long id) {
         return hibernateTemplate.get(User.class, id);
     }
     
@@ -36,15 +36,15 @@ public class UserDaoImpl implements UserDao {
  
 	@Transactional
     public User createUser(User user) {
-    	Integer id = (Integer) hibernateTemplate.save(user);
+    	Long id = (Long) hibernateTemplate.save(user);
         user.setId(id);
         return user;
     }
     
     @Transactional
-    public int deleteUserById(Integer id) {
+    public int deleteUserById(Long id) {
     	Query query = sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM USER WHERE ID = :id");
-    	query.setInteger("id", id);
+    	query.setLong("id", id);
     	return query.executeUpdate();
     }
  
@@ -58,8 +58,9 @@ public class UserDaoImpl implements UserDao {
     @Transactional
     @SuppressWarnings("unchecked")
     public List<User> findAllUsers() {
-        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class); // Criteria Query
-        return criteria.list();
+    	Query query = sessionFactory.getCurrentSession().createQuery("FROM User");
+    	List<User> uList = query.list();
+    	return uList;
     }
  
     public User findUserByEmail(String email) {
@@ -80,16 +81,16 @@ public class UserDaoImpl implements UserDao {
     	u.setId(user.getId());
     	u.setEmail(user.getEmail());
     	u.setPassword(user.getPassword());
-    	u.setSwitchFC(user.getSwitchFC());
-    	u.setThreeDSFC(user.getThreeDSFC());		
+    	u.setSwitchfc(user.getSwitchfc());
+    	u.setThreedsfc(user.getThreedsfc());		
     	u.setPokedexes(user.getPokedexes());
     	hibernateTemplate.update(u);
     	return u;
     }
     
     public Boolean isUserExist(User user) {
-    	Query query = sessionFactory.getCurrentSession().createSQLQuery("SELECT FROM POKEDEX WHERE EMAIL = :email");
-    	query.setString("email", user.getEmail());
+    	Query query = sessionFactory.getCurrentSession().createQuery("FROM User WHERE email = :email");
+    	query.setParameter("email", user.getEmail());
     	List<?> uList = query.list();
     	if (uList.isEmpty()) {
     		return false;

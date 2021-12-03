@@ -1,5 +1,7 @@
 package com.pokedex.springmvc.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,24 +21,19 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="pokedex")
-public class Pokedex {
+public class Pokedex implements Serializable {
 	
-	// TODO: Make this a ref table - make this another table
-	public enum Game {
-		GALAR, ALOLA, KALOS, UNOVA, SINNOH, HOENN, JOHTO, KANTO
-	}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id; // Change to Long
     
     @Size(min=1, max=50)
     @Column(name = "NAME", unique = true)
     private String name;
     
-    @Enumerated(EnumType.STRING)
     @Column(name = "GAME")
-    private Game game;
+    private String game;
     
     @Column(name = "REGIONALITY")
     private Boolean regionality;
@@ -44,14 +41,14 @@ public class Pokedex {
     @Column(name = "SHINY")
     private Boolean shiny;
     
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="POKEDEX_USER", referencedColumnName = "USERNAME")
     @JsonBackReference
     private User pUser;
     
     public Pokedex() {}
     
-    public Pokedex(Integer id, String name, Game game, boolean regionality, boolean shiny, User pUser) {
+    public Pokedex(Long id, String name, String game, boolean regionality, boolean shiny, User pUser) {
         this.id = id;
         this.name = name;
         this.game = game;
@@ -60,11 +57,11 @@ public class Pokedex {
         this.pUser = pUser;
     }
     
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
  
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -76,11 +73,11 @@ public class Pokedex {
     	this.name = name;
     }
  
-    public Game getGame() {
+    public String getGame() {
         return game;
     }
  
-    public void setGame(Game game) {
+    public void setGame(String game) {
         this.game = game;
     }
     
@@ -106,29 +103,6 @@ public class Pokedex {
     
     public void setUser(User pUser) {
     	this.pUser = pUser;
-    }
- 
- 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
-    }
- 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        Pokedex other = (Pokedex) obj;
-        if (id != other.id)
-            return false;
-        return true;
     }
  
     @Override

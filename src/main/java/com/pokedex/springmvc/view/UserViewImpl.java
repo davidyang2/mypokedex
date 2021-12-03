@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserViewImpl implements UserView {
 	
 	@JsonProperty("id")
-    private Integer id;
+    private Long id;
     
 	@JsonProperty("username")
     private String username;
@@ -30,7 +30,7 @@ public class UserViewImpl implements UserView {
      
     public UserViewImpl() {}
     
-    public UserViewImpl(Integer id, String username, String email, 
+    public UserViewImpl(Long id, String username, String email, 
     		String password, String switchfc, String threedsfc) {
         this.id = id;
         this.username = username;
@@ -41,11 +41,11 @@ public class UserViewImpl implements UserView {
         this.pokedexes = new HashSet<PokedexViewImpl>();
     }
  
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
  
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
  
@@ -73,19 +73,19 @@ public class UserViewImpl implements UserView {
         this.password = password;
     }
     
-    public String getSwitchFC() {
+    public String getSwitchfc() {
         return switchfc;
     }
  
-    public void setSwitchFC(String switchfc) {
+    public void setSwitchfc(String switchfc) {
         this.switchfc = switchfc;
     }
     
-    public String getThreeDSFC() {
+    public String getThreedsfc() {
         return threedsfc;
     }
  
-    public void setThreeDSFC(String threedsfc) {
+    public void setThreedsfc(String threedsfc) {
         this.threedsfc = threedsfc;
     }
     
@@ -121,6 +121,6 @@ public class UserViewImpl implements UserView {
  
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", email=" + email + "]";
+        return "User [id=" + id + ", username=" + username + ", password= " + password + ", email=" + email + ", switchfc=" + switchfc + ", threedsfc= " + threedsfc;
     }
 }

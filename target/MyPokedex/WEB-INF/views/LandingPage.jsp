@@ -16,10 +16,10 @@
 	<h1>Welcome to MyPokedex!</h1><br>
 	<h3>A Living Dex Pokemon Tracker</h2>
 	<p>Support for all generations of mainline Pokemon games</h3><br>
-	<a href="/MyPokedex/login/">
+	<a href="/MyPokedex/login">
   		<button type="button" class="btn btn-primary">Login</button>
 	</a><br><br>
-	<a href="/MyPokedex/signup/">
+	<a href="/MyPokedex/signup">
   		<button type="button" class="btn btn-secondary">Sign Up</button>
 	</a>
 </body>

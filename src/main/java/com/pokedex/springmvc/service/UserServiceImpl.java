@@ -9,15 +9,14 @@ import org.springframework.stereotype.Service;
 import com.pokedex.springmvc.dao.UserDao;
 import com.pokedex.springmvc.model.User;
 
-
 @Service("userService")
-@Transactional
+@Transactional // Move to methods
 public class UserServiceImpl implements UserService{
 	
     @Autowired
-    private UserDao dao;
+    private UserDao dao; // change to userDao
      
-    public User findById(Integer id) {
+    public User findById(Long id) {
         return dao.findById(id);
     }
     
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService{
         return dao.deleteUserByEmail(email);
     }
     
-    public int deleteUserById(Integer id) {
+    public int deleteUserById(Long id) {
     	return dao.deleteUserById(id);
     }
     

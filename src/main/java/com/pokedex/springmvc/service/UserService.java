@@ -6,7 +6,7 @@ import com.pokedex.springmvc.model.User;
  
 public interface UserService {
      
-    public User findById(Integer id);
+    public User findById(Long id);
     
     public User findByEmail(String email);
      
@@ -16,7 +16,7 @@ public interface UserService {
      
     public int deleteUserByEmail(String email);
     
-    public int deleteUserById(Integer id);
+    public int deleteUserById(Long id);
  
     public List<User> findAllUsers();
     

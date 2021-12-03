@@ -2,7 +2,7 @@
  
 angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $q){
 	
-	var REST_SERVICE_URI = 'http://localhost:8080/MyPokedex/user/';
+	var REST_SERVICE_URI = 'http://localhost:8080/MyPokedex/user';
 	
     var factory = {
         fetchAllUsers: fetchAllUsers,
@@ -46,6 +46,7 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
  
     function createUser(user) {
         var deferred = $q.defer();
+		console.log(user);
         $http.post(REST_SERVICE_URI, user)
             .then(
             function (response) {
@@ -62,6 +63,7 @@ angular.module('myApp').factory('UserService', ['$http', '$q', function($http, $
  
     function updateUser(user, id) {
         var deferred = $q.defer();
+		console.log("updating");
         $http.put(REST_SERVICE_URI+id, user)
             .then(
             function (response) {
