@@ -1,9 +1,9 @@
 package com.pokedex.springmvc.view;
 
 public interface UserView {
-	public Integer getId();
+	public Long getId();
  
-    public void setId(Integer id);
+    public void setId(Long id);
  
     public String getUsername();
  
@@ -17,11 +17,11 @@ public interface UserView {
  
     public void setPassword(String password);
     
-    public String getSwitchFC();
+    public String getSwitchfc();
  
-    public void setSwitchFC(String switchfc);
+    public void setSwitchfc(String switchfc);
     
-    public String getThreeDSFC();
+    public String getThreedsfc();
  
-    public void setThreeDSFC(String threedsfc);
+    public void setThreedsfc(String threedsfc);
 }

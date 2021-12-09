@@ -6,7 +6,7 @@ import com.pokedex.springmvc.model.Pokedex;
 
 public interface PokedexService {
 
-    public Pokedex findById(Integer id);
+    public Pokedex findById(Long id);
     
     public Pokedex findByName(String name);
      
@@ -16,7 +16,7 @@ public interface PokedexService {
      
     public int deletePokedexByName(String name);
     
-    public int deletePokedexById(Integer id);
+    public int deletePokedexById(Long id);
     
     public Boolean isPokedexExist(Pokedex pokedex);
  

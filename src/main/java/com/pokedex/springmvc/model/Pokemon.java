@@ -19,11 +19,11 @@ public class Pokemon {
 	private String name;
 	
 	@Size(max=20)
-	@Column(name="TYPE 1")
+	@Column(name="TYPEONE") // Remove spaces, add comments
 	private String typeOne;
 	
 	@Size(max=20)
-	@Column(name="TYPE 2")
+	@Column(name="TYPETWO")
 	private String typeTwo;
 	
 	@Column(name="TOTAL")
@@ -53,6 +53,8 @@ public class Pokemon {
 	@Size(max=10)
 	@Column(name="LEGENDARY")
 	private String legendary;
+	
+//	public Pokemon() {} // possibly delete
 	
 	public Integer getNumber() {
 		return number;

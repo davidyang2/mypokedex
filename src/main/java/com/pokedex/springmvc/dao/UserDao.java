@@ -6,13 +6,13 @@ import com.pokedex.springmvc.model.User;
 
 public interface UserDao {
 	
-    public User findById(Integer id);
+    public User findById(Long id);
     
     public User findByEmail(String email);
     
     public User createUser(User user);
     
-    public int deleteUserById(Integer id);
+    public int deleteUserById(Long id);
      
     public int deleteUserByEmail(String email);
      

@@ -16,7 +16,7 @@ public class PokedexServiceImpl implements PokedexService {
     @Autowired
     private PokedexDao dao;
      
-    public Pokedex findById(Integer id) {
+    public Pokedex findById(Long id) {
         return dao.findById(id);
     }
     
@@ -49,7 +49,7 @@ public class PokedexServiceImpl implements PokedexService {
     }
     
     @Transactional
-    public int deletePokedexById(Integer id) {
+    public int deletePokedexById(Long id) {
     	return dao.deletePokedexById(id);
     }
     

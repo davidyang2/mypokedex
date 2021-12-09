@@ -16,7 +16,7 @@
 <body>
 	<h1>Pokedex List</h1><br>
 	<div class="col text-center">
-		<a href="/MyPokedex/mypokedex/create/">
+		<a href="/MyPokedex/mypokedex/create">
   			<button type="button" class="btn btn-primary">Create a New Pokedex</button>
 		</a>
 	</div>

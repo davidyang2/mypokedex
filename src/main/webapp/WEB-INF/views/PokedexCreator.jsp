@@ -29,7 +29,7 @@
      	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
   </head>
   <body ng-app="myApp" class="ng-cloak">
-      <div class="generic-container" ng-controller="UserController as ctrl">
+      <div class="generic-container" ng-controller="PokedexController as ctrl">
           <div class="panel panel-default">
               <div class="panel-heading"><span class="lead">Log In</span></div>
               <div class="formcontainer">
@@ -39,7 +39,7 @@
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="name">Name</label>
                               <div class="col-md-7">
-                                  <input type="text" ng-model="ctrl.dex.name" id="name" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="0"/>
+                                  <input type="text" ng-model="ctrl.pokedex.name" id="name" class="username form-control input-sm" placeholder="Enter your name" required ng-minlength="0"/>
                                   <div class="has-error" ng-show="myForm.$dirty">
                                       <span ng-show="myForm.name.$error.required">This is a required field</span>
                                       <span ng-show="myForm.name.$error.minlength">Minimum length required is 0</span>
@@ -51,15 +51,15 @@
                       
                       <div class="row">
                      	 <label class="col-md-2 control-lable" for="name">Region</label>
-                      		<select class="form-select" aria-label="Default select example">
-  								<option selected>Galar (Sword/Shield)</option>
-  								<option value="2">Alola (Sun/Moon)</option>
-  								<option value="3">Kalos (X/Y)</option>
-  								<option value="4">Unova (Black/White)</option>
-  								<option value="5">Sinnoh (Diamond/Pearl)</option>
-  								<option value="6">Hoenn (Ruby/Sapphire)</option>
-  								<option value="6">Johto (Gold/Silver)</option>
-  								<option value="6">Kanto (Red/Blue)</option>
+                      		<select class="form-select" ng-model="ctrl.pokedex.region" aria-label="Default select example">
+  								<option selected>Galar</option>
+  								<option value="2">Alola</option>
+  								<option value="3">Kalos</option>
+  								<option value="4">Unova</option>
+  								<option value="5">Sinnoh</option>
+  								<option value="6">Hoenn</option>
+  								<option value="6">Johto</option>
+  								<option value="6">Kanto</option>
   								
 					  		</select>
 					  </div>
@@ -67,14 +67,14 @@
 					  <div class="row">
 					  <label class="col-md-2 control-lable" for="name">Regionality</label>
 					  	<div class="form-check">
-  							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+  							<input class="form-check-input" type="radio" ng-model="ctrl.pokedex.regionality" ng-value="false" name="flexRadioDefault1" id="flexRadioDefault1">
   								<label class="form-check-label" for="flexRadioDefault1">
     							National
   								</label>
 						</div>
 						<div class="form-check">
-  							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-  								<label class="form-check-label" for="flexRadioDefault2">
+  							<input class="form-check-input" type="radio" ng-model="ctrl.pokedex.regionality" ng-value="true" name="flexRadioDefault1" id="flexRadioDefault1" checked>
+  								<label class="form-check-label" for="flexRadioDefault1">
     							Regional
   								</label>
 						</div>
@@ -83,14 +83,14 @@
 					  <div class="row">
 					  <label class="col-md-2 control-lable" for="name">Type</label>
 					  	<div class="form-check">
-  							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-  								<label class="form-check-label" for="flexRadioDefault3">
+  							<input class="form-check-input" type="radio" ng-model="ctrl.pokedex.shiny" ng-value="false" name="flexRadioDefault2" id="flexRadioDefault2">
+  								<label class="form-check-label" for="flexRadioDefault2">
     							Normal
   								</label>
 						</div>
 						<div class="form-check">
-  							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked>
-  								<label class="form-check-label" for="flexRadioDefault4">
+  							<input class="form-check-input" type="radio" ng-model="ctrl.pokedex.shiny" ng-value="true" name="flexRadioDefault2" id="flexRadioDefault2" checked>
+  								<label class="form-check-label" for="flexRadioDefault2">
     							Shiny
   								</label>
 						</div>
@@ -112,9 +112,7 @@
        
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
       <script src="<c:url value='/static/js/app.js' />"></script>
-      <script src="<c:url value='/static/js/service/user_service.js' />"></script>
-      <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
-      <script src="<c:url value='/static/js/service/user_service.js' />"></script>
-      <script src="<c:url value='/static/js/controller/user_controller.js' />"></script>
+      <script src="<c:url value='/static/js/service/pokedex_service.js' />"></script>
+      <script src="<c:url value='/static/js/controller/pokedex_controller.js' />"></script>
   </body>
 </html>

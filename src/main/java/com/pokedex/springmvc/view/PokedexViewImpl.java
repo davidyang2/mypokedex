@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PokedexViewImpl implements PokedexView {
 	
 	@JsonProperty("id")
-	private Integer id;
+	private Long id;
 	
 	@JsonProperty("name")
 	private String name;
 	
 	@JsonProperty("amount")
-	private Game game;
+	private String game;
 	
 	@JsonProperty("regionality")
 	private Boolean regionality;
@@ -24,7 +24,7 @@ public class PokedexViewImpl implements PokedexView {
 	
 	public PokedexViewImpl() {}
 	
-	public PokedexViewImpl(Integer id, String name, Game game, 
+	public PokedexViewImpl(Long id, String name, String game, 
 			Boolean regionality, Boolean shiny, UserView pUser) {
 		this.id = id;
         this.name = name;
@@ -33,11 +33,11 @@ public class PokedexViewImpl implements PokedexView {
         this.shiny = shiny;
         this.pUser = pUser;
 	}
-    public Integer getId() {
+    public Long getId() {
         return id; 
     }
  
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
@@ -49,11 +49,11 @@ public class PokedexViewImpl implements PokedexView {
     	this.name = name;
     }
  
-    public Game getGame() {
+    public String getGame() {
         return game;
     }
  
-    public void setGame(Game game) {
+    public void setGame(String game) {
         this.game = game;
     }
     

@@ -43,6 +43,8 @@ public class PokemonViewImpl implements PokemonView {
 	@JsonProperty("legendary")
 	private String legendary;
 	
+	public PokemonViewImpl() {}
+	
 	public Integer getNumber() {
 		return number;
 	}

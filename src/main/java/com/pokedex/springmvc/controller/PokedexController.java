@@ -18,66 +18,64 @@ import com.pokedex.springmvc.model.Pokedex;
 import com.pokedex.springmvc.model.User;
 import com.pokedex.springmvc.service.PokedexService;
 import com.pokedex.springmvc.service.UserService;
+import com.pokedex.springmvc.view.PokedexViewImpl;
+import com.pokedex.springmvc.manager.PokedexManager;
 
 @RestController
 public class PokedexController {
-
+	
     @Autowired
-    PokedexService pokedexService;  //Service which will do all data retrieval/manipulation work
+    PokedexManager pokedexManager;  //Service which will do all data retrieval/manipulation work
     
     //-------------------Retrieve All Pokedexes--------------------------------------------------------
     
-    @RequestMapping(value = "/pokedex/", method = RequestMethod.GET)
-    public ResponseEntity<List<Pokedex>> listAllPokedexes() {
-        List<Pokedex> pokedexes = pokedexService.findAllPokedexes();
+    @RequestMapping(value = "/pokedex", method = RequestMethod.GET)
+    public ResponseEntity<List<PokedexViewImpl>> listAllPokedexes() {
+        List<PokedexViewImpl> pokedexes = pokedexManager.getAllPokedexes();
         if(pokedexes.isEmpty()){
-            return new ResponseEntity<List<Pokedex>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+            return new ResponseEntity<List<PokedexViewImpl>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }
-        return new ResponseEntity<List<Pokedex>>(pokedexes, HttpStatus.OK);
+        return new ResponseEntity<List<PokedexViewImpl>>(pokedexes, HttpStatus.OK);
     }
     
     //-------------------Retrieve All Pokedexes By Username--------------------------------------------
     @RequestMapping(value = "/pokedex/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<Pokedex>> listAllPokedexesByUsername(@PathVariable("username") String username) {
-    	 List<Pokedex> pokedexes = pokedexService.findAllPokedexesByUsername(username);
+    public ResponseEntity<List<PokedexViewImpl>> listAllPokedexesByUsername(@PathVariable("username") String username) {
+    	 List<PokedexViewImpl> pokedexes = pokedexManager.getAllPokedexesByUsername(username);
          if(pokedexes.isEmpty()){
-             return new ResponseEntity<List<Pokedex>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
+             return new ResponseEntity<List<PokedexViewImpl>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
          }
-         return new ResponseEntity<List<Pokedex>>(pokedexes, HttpStatus.OK);
+         return new ResponseEntity<List<PokedexViewImpl>>(pokedexes, HttpStatus.OK);
     }
   
      
     //-------------------Retrieve Single Pokedex--------------------------------------------------------
       
     @RequestMapping(value = "/pokedex/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pokedex> getPokedex(@PathVariable("id") Integer id) {
+    public ResponseEntity<PokedexViewImpl> getPokedex(@PathVariable("id") Long id) {
         System.out.println("Fetching User with id " + id);
-        Pokedex pokedex = pokedexService.findById(id);
+        PokedexViewImpl pokedex = pokedexManager.findPokedexById(id);
         if (pokedex == null) {
             System.out.println("Pokedex with id " + id + " not found");
-            return new ResponseEntity<Pokedex>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<PokedexViewImpl>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Pokedex>(pokedex, HttpStatus.OK);
+        return new ResponseEntity<PokedexViewImpl>(pokedex, HttpStatus.OK);
     }
   
       
       
     //-------------------Create a Pokedex--------------------------------------------------------
       
-    @RequestMapping(value = "/pokedex/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createUser(@RequestBody Pokedex pokedex, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(value = "/pokedex", method = RequestMethod.POST)
+    public ResponseEntity<PokedexViewImpl> createUser(@RequestBody PokedexViewImpl pokedex) {
         System.out.println("Creating Pokedex " + pokedex.getName());
   
-//        if (userService.isUserExist(user)) {
-//            System.out.println("A User with name " + user.getUsername() + " already exist");
-//            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-//        }
-  
-        pokedexService.createPokedex(pokedex);
-  
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(ucBuilder.path("/pokedex/{id}").buildAndExpand(pokedex.getId()).toUri());
-        return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+        PokedexViewImpl pokedexView = pokedexManager.createPokedex(pokedex);
+        
+        System.out.println(pokedex);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setLocation(ucBuilder.path("/pokedex/{id}").buildAndExpand(pokedex.getId()).toUri());
+        return new ResponseEntity<PokedexViewImpl>(pokedexView, HttpStatus.CREATED);
     }
   
      
@@ -85,14 +83,14 @@ public class PokedexController {
     //------------------- Update a Pokedex --------------------------------------------------------
       
     @RequestMapping(value = "/pokedex/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Pokedex> updatePokedex(@PathVariable("id") Integer id, @RequestBody Pokedex pokedex) {
+    public ResponseEntity<PokedexViewImpl> updatePokedex(@PathVariable("id") Long id, @RequestBody Pokedex pokedex) {
         System.out.println("Updating Pokedex " + id);
           
-        Pokedex currentPokedex = pokedexService.findById(id);
+        PokedexViewImpl currentPokedex = pokedexManager.findPokedexById(id);
           
         if (currentPokedex==null) {
             System.out.println("User with id " + id + " not found");
-            return new ResponseEntity<Pokedex>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<PokedexViewImpl>(HttpStatus.NOT_FOUND);
         }
   
         currentPokedex.setName(pokedex.getName());
@@ -100,8 +98,8 @@ public class PokedexController {
         currentPokedex.setRegionality(pokedex.getRegionality());
         currentPokedex.setShiny(pokedex.getShiny());
           
-        pokedexService.updatePokedex(currentPokedex);
-        return new ResponseEntity<Pokedex>(currentPokedex, HttpStatus.OK);
+        pokedexManager.updatePokedex(currentPokedex);
+        return new ResponseEntity<PokedexViewImpl>(currentPokedex, HttpStatus.OK);
     }
   
      
@@ -109,16 +107,16 @@ public class PokedexController {
     //------------------- Delete a Pokedex --------------------------------------------------------
       
     @RequestMapping(value = "/pokedex/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Pokedex> deletePokedex(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deletePokedex(@PathVariable("id") Long id) {
         System.out.println("Fetching & Deleting User with id " + id);
   
-        Pokedex pokedex = pokedexService.findById(id);
+        PokedexViewImpl pokedex = pokedexManager.findPokedexById(id);
         if (pokedex == null) {
             System.out.println("Unable to delete. Pokedex with id " + id + " not found");
-            return new ResponseEntity<Pokedex>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
   
-        pokedexService.deletePokedexById(id);
-        return new ResponseEntity<Pokedex>(HttpStatus.NO_CONTENT);
+        pokedexManager.deletePokedexById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 }

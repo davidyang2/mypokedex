@@ -8,7 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.pokedex.springmvc.model.Pokedex;
@@ -22,7 +22,7 @@ public class PokedexDaoImpl implements PokedexDao {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
-	public Pokedex findById(Integer id) {
+	public Pokedex findById(Long id) {
 		return hibernateTemplate.get(Pokedex.class, id);
 	}
 
@@ -35,7 +35,7 @@ public class PokedexDaoImpl implements PokedexDao {
 
 	@Transactional
 	public Pokedex createPokedex(Pokedex pokedex) {
-		Integer id = (Integer) hibernateTemplate.save(pokedex);
+		Long id = (Long) hibernateTemplate.save(pokedex);
 		pokedex.setId(id);
 		return pokedex;
 	}
@@ -48,9 +48,9 @@ public class PokedexDaoImpl implements PokedexDao {
 	}
 	
 	@Transactional
-	public int deletePokedexById(Integer id) {
+	public int deletePokedexById(Long id) {
 		Query query = sessionFactory.getCurrentSession().createSQLQuery("DELETE FROM POKEDEX WHERE id = :id");
-		query.setInteger("id", id);
+		query.setLong("id", id);
 		return query.executeUpdate();
 	}
 	

@@ -5,7 +5,7 @@ import java.util.List;
 import com.pokedex.springmvc.model.Pokedex;
 
 public interface PokedexDao {
-    public Pokedex findById(Integer id);
+    public Pokedex findById(Long id);
     
     public Pokedex findByName(String email);
     
@@ -13,7 +13,7 @@ public interface PokedexDao {
      
     public int deletePokedexByName(String name);
     
-    public int deletePokedexById(Integer id);
+    public int deletePokedexById(Long id);
     
     public Pokedex updatePokedex(Pokedex pokedex);
     
