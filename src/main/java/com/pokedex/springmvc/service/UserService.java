@@ -6,20 +6,20 @@ import com.pokedex.springmvc.model.User;
  
 public interface UserService {
      
-    User findById(long id);
+    public User findById(Long id);
+    
+    public User findByEmail(String email);
      
-    User findByName(String name);
+    public User createUser(User user);
      
-    void saveUser(User user);
+    public User updateUser(User user);
      
-    void updateUser(User user);
-     
-    void deleteUserById(long id);
+    public int deleteUserByEmail(String email);
+    
+    public int deleteUserById(Long id);
  
-    List<User> findAllUsers(); 
-     
-    void deleteAllUsers();
-     
-    public boolean isUserExist(User user);
-     
+    public List<User> findAllUsers();
+    
+    public Boolean isUserExist(User user);
+
 }

@@ -8,12 +8,6 @@
 <meta charset="UTF-8">
 <title>Pokedex List</title>
 <style>
-      <%-- Move to css file --%>
-      h1 {text-align: center;}
-      h2 {text-align: center;}
-      h3 {text-align: center;}
-      p {text-align: center;}
-      a {text-align: center;}
  
     </style>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></link>
@@ -22,7 +16,7 @@
 <body>
 	<h1>Pokedex List</h1><br>
 	<div class="col text-center">
-		<a href="/MyPokedex/mypokedex/create/">
+		<a href="/MyPokedex/mypokedex/create">
   			<button type="button" class="btn btn-primary">Create a New Pokedex</button>
 		</a>
 	</div>

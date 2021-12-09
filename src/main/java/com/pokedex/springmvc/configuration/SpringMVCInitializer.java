@@ -13,7 +13,7 @@ public class SpringMVCInitializer extends AbstractAnnotationConfigDispatcherServ
    
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return null;
+    	return null;
     }
    
     @Override

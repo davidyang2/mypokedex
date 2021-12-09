@@ -1,5 +1,6 @@
 package com.pokedex.springmvc.configuration;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -12,26 +13,37 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({ "com.pokedex.springmvc.configuration" })
+@ComponentScan({ "com.pokedex.springmvc" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfiguration {
  
     @Autowired
     private Environment environment;
- 
+    
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+    public HibernateTemplate hibernateTemplate() {
+    	return new HibernateTemplate(sessionFactory());
+    }
+    
+    @Bean
+    public SessionFactory sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[] { "com.pokedex.springmvc.model" });
+        sessionFactory.setPackagesToScan(new String[] { "com.pokedex.springmvc.model" }); // possibly scan dao, service package
         sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
+        try {
+        	sessionFactory.afterPropertiesSet();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        return sessionFactory.getObject();
      }
      
     @Bean
@@ -43,20 +55,19 @@ public class HibernateConfiguration {
         dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
         return dataSource;
     }
-     
-    private Properties hibernateProperties() {
+    
+    @Bean
+    public Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
         return properties;        
     }
-     
+    
     @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory s) {
-       HibernateTransactionManager txManager = new HibernateTransactionManager();
-       txManager.setSessionFactory(s);
-       return txManager;
+    public HibernateTransactionManager transactionManager() {
+    	return new HibernateTransactionManager(sessionFactory());
     }
 }

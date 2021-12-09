@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 @Controller
 public class PokedexHomeController {
-	@RequestMapping(value="/mypokedexhome/", method= RequestMethod.GET)
+	@RequestMapping(value="/mypokedexhome", method= RequestMethod.GET)
 	public String getLoginPage() {
 		return "PokedexPage";
 	}

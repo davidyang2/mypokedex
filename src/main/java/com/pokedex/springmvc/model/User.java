@@ -1,38 +1,68 @@
 package com.pokedex.springmvc.model;
 
-public class User {
-	 
-    private long id;
-     
-    private String username;
-     
-    private String email;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name="user")
+public class User implements Serializable {
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Switch to Long
     
+    @Size(min=1, max=50)
+    @Column(name = "USERNAME", unique=true)
+    private String username;
+    
+    @Size(min=1, max=50)
+    @Column(name = "EMAIL", unique=true)
+    private String email;
+
+    @Size(min=7, max=50)
+    @Column(name = "PASSWORD")
     private String password;
     
+    @Column(name = "SWITCHFC")
     private String switchfc;
     
+    @Column(name = "THREEDSFC")
     private String threedsfc;
+    
+    // @Transaction either on Dao or service layer 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pUser", cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<Pokedex> pokedexes;
      
-    public User(){
-        id=0;
-    }
-     
-    public User(long id, String username, String email, 
-    		String password, String switchfc, String threedsfc){
+    public User() {}
+    
+    public User(Long id, String username, String email, 
+    		String password, String switchfc, String threedsfc) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.switchfc = switchfc;
         this.threedsfc = threedsfc;
+        this.pokedexes = new HashSet<Pokedex>();
     }
  
-    public long getId() {
+    public Long getId() {
         return id;
     }
  
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
  
@@ -60,42 +90,28 @@ public class User {
         this.password = password;
     }
     
-    public String getSwitchFC() {
+    public String getSwitchfc() {
         return switchfc;
     }
  
-    public void setSwitchFC(String switchfc) {
+    public void setSwitchfc(String switchfc) {
         this.switchfc = switchfc;
     }
     
-    public String getThreeDSFC() {
+    public String getThreedsfc() {
         return threedsfc;
     }
  
-    public void setThreeDSDC(String threedsfc) {
+    public void setThreedsfc(String threedsfc) {
         this.threedsfc = threedsfc;
     }
- 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (id ^ (id >>> 32));
-        return result;
+    
+    public Set<Pokedex> getPokedexes() {
+    	return pokedexes;
     }
- 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User) obj;
-        if (id != other.id)
-            return false;
-        return true;
+    
+    public void setPokedexes(Set<Pokedex> pokedexes) {
+    	this.pokedexes = pokedexes;
     }
  
     @Override

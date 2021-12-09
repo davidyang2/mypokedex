@@ -1,85 +1,72 @@
 package com.pokedex.springmvc.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
  
 import org.springframework.stereotype.Service;
  
+import com.pokedex.springmvc.dao.UserDao;
 import com.pokedex.springmvc.model.User;
- 
+
 @Service("userService")
+@Transactional // Move to methods
 public class UserServiceImpl implements UserService{
+	
+    @Autowired
+    private UserDao dao; // change to userDao
      
-    private static final AtomicLong counter = new AtomicLong();
-     
-    private static List<User> users;
-     
-    static{
-        users= populateDummyUsers();
+    public User findById(Long id) {
+        return dao.findById(id);
+    }
+    
+    public User findByEmail(String email) {
+        return dao.findByEmail(email);
     }
  
+    public User createUser(User user) {
+        return dao.createUser(user);
+    }
+ 
+    /*
+     * Since the method is running with Transaction, No need to call hibernate update explicitly.
+     * Just fetch the entity from db and update it with proper values within transaction.
+     * It will be updated in db once transaction ends. 
+     */
+    public User updateUser(User user) {
+//        User entity = dao.findById(user.getId());
+//        if(entity!=null){
+//            entity.setUsername(user.getUsername());
+//            entity.setEmail(user.getEmail());
+//            entity.setPassword(user.getPassword());
+//            entity.setSwitchFC(user.getSwitchFC());
+//            entity.setThreeDSFC(user.getThreeDSFC());
+//            entity.setPokedexes(user.getPokedexes());
+//        }
+//        return entity;
+    	return dao.updateUser(user);
+    }
+ 
+    public int deleteUserByEmail(String email) {
+        return dao.deleteUserByEmail(email);
+    }
+    
+    public int deleteUserById(Long id) {
+    	return dao.deleteUserById(id);
+    }
+    
+     
     public List<User> findAllUsers() {
-//    	for (User u : users) {
-//    		System.out.println(u.getSwitchFC());
-//    		System.out.println(u.getThreeDSFC());
-//    	}
-        return users;
-    }
-     
-    public User findById(long id) {
-        for(User user : users){
-            if(user.getId() == id){
-                return user;
-            }
-        }
-        return null;
-    }
-     
-    public User findByName(String name) {
-        for(User user : users){
-            if(user.getUsername().equalsIgnoreCase(name)){
-                return user;
-            }
-        }
-        return null;
-    }
-     
-    public void saveUser(User user) {
-        user.setId(counter.incrementAndGet());
-        users.add(user);
+        return dao.findAllUsers();
     }
  
-    public void updateUser(User user) {
-        int index = users.indexOf(user);
-        users.set(index, user);
+    public User findUserByUsername(String username) {
+        return dao.findUserByUsername(username);
     }
- 
-    public void deleteUserById(long id) {
-         
-        for (Iterator<User> iterator = users.iterator(); iterator.hasNext(); ) {
-            User user = iterator.next();
-            if (user.getId() == id) {
-                iterator.remove();
-            }
-        }
-    }
- 
-    public boolean isUserExist(User user) {
-        return findByName(user.getUsername())!=null;
-    }
-     
-    public void deleteAllUsers(){
-        users.clear();
-    }
- 
-    private static List<User> populateDummyUsers(){
-        List<User> users = new ArrayList<User>();
-        users.add(new User(counter.incrementAndGet(),"davidyang", "dyang@gmail.com", 
-        		"password1", "SW-0000-0000-0000-0001", "0000-0000-0001"));
-        users.add(new User(counter.incrementAndGet(),"davidyang2", "test@abc.com", "password2", null, null));
-        return users;
-    }
+
+	public Boolean isUserExist(User user) {
+		return dao.isUserExist(user);
+	}
+
  
 }
